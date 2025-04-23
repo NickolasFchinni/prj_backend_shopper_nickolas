@@ -24,7 +24,10 @@ services:
       GEMINI_API_KEY: ${GEMINI_API_KEY}
     depends_on:
       - database
+    volumes:
+      - .:/app
     restart: always
+    
 
 volumes:
   postgres_data:
