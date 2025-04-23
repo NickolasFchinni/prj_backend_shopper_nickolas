@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   database:
@@ -26,8 +26,9 @@ services:
       - database
     volumes:
       - .:/app
+      - ./public/uploads:/app/public/uploads
+    command: npm run dev
     restart: always
-    
 
 volumes:
   postgres_data:

@@ -9,4 +9,6 @@ RUN npm install
 
 # RUN npm run build
 
+RUN mkdir -p /app/public/uploads
+
 CMD ["npm", "run", "dev"]
