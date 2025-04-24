@@ -1,26 +1,11 @@
-import express from "express"
 import dotenv from "dotenv"
-import cors from "cors"
-import uploadRoutes from "./routes/upload.routes"
-import path from "path"
+import { createServer } from "./server"
 
 dotenv.config()
-const app = express()
-app.use(cors())
-app.use(express.json())
 
-app.use(express.json({ limit: "10mb" }))
+const app = createServer()
+const PORT = process.env.PORT || 3000
 
-app.get("/", (req, res) => {
-  res.send("API funcionando!")
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`)
 })
-
-app.use(
-  "/uploads",
-  express.static(path.join(__dirname, "..", "public", "uploads"))
-)
-
-app.use(uploadRoutes)
-
-const PORT = 3000
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`))
