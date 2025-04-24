@@ -7,16 +7,16 @@ import path from "path"
 const prisma = new PrismaClient()
 
 interface UploadInput {
-  image: string
+  imagePath: string // novo campo
   customer_code: string
   measure_datetime: string
   measure_type: string
 }
 
 export async function uploadImageAndExtractValue(data: UploadInput) {
-  const { image, customer_code, measure_datetime, measure_type } = data
+  const { imagePath, customer_code, measure_datetime, measure_type } = data
 
-  if (!image || !customer_code || !measure_datetime || !measure_type) {
+  if (!imagePath || !customer_code || !measure_datetime || !measure_type) {
     throw new Error("Campos obrigatórios ausentes")
   }
 
@@ -48,10 +48,12 @@ export async function uploadImageAndExtractValue(data: UploadInput) {
     }
   }
 
-  const measure_value = await getMeasureValueFromGemini(image)
+  const base64Image = fs.readFileSync(imagePath, { encoding: "base64" })
+  const measure_value = await getMeasureValueFromGemini(base64Image)
 
   const measure_uuid = uuidv4()
-  const image_url = saveBase64Image(image, measure_uuid)
+  const filename = path.basename(imagePath)
+  const image_url = `http://localhost/uploads/${filename}`
 
   await prisma.measure.create({
     data: {
@@ -102,8 +104,6 @@ async function getMeasureValueFromGemini(base64Image: string): Promise<number> {
       }
     )
 
-    console.log("Resposta completa da API:", response.data) // Log para debug
-
     const result = response.data?.candidates?.[0]?.content?.parts?.[0]?.text
     if (!result) throw new Error("Resposta da API não contém texto")
 
@@ -119,27 +119,4 @@ async function getMeasureValueFromGemini(base64Image: string): Promise<number> {
     )
     throw new Error(`Falha ao processar imagem: ${error.message}`)
   }
-}
-
-function saveBase64Image(base64: string, filename: string): string {
-  const matches = base64.match(/^data:image\/(\w+);base64,(.+)$/)
-  if (!matches) throw new Error("Imagem em base64 inválida")
-
-  const ext = matches[1]
-  const data = matches[2]
-  const buffer = Buffer.from(data, "base64")
-
-  const uploadsDir = path.join(__dirname, "..", "..", "public", "uploads")
-  if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir, { recursive: true })
-  }
-
-  const fileName = `${filename}.${ext}`
-  const filePath = path.join(uploadsDir, fileName)
-
-  fs.writeFileSync(filePath, buffer)
-
-  console.log("Imagem salva em:", filePath)
-
-  return `http://localhost:3000/uploads/${fileName}`
 }
