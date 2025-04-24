@@ -1,7 +1,9 @@
 import express from "express"
 import cors from "cors"
 import path from "path"
-import uploadRoutes from "./routes/upload.routes"
+import uploadRoutes from "./routes/upload.route"
+import confirmRoutes from "./routes/confirm.route"
+import listMeasuresRoutes from "./routes/listMeasures.route"
 
 export function createServer() {
   const app = express()
@@ -19,6 +21,8 @@ export function createServer() {
   )
 
   app.use(uploadRoutes)
+  app.use(confirmRoutes)
+  app.use(listMeasuresRoutes)
 
   return app
 }

@@ -5,7 +5,7 @@ import { readImageAsBase64 } from "../utils/convertImageToBase64.util"
 import { UploadInput } from "../types/upload.type"
 import { validateInput } from "../utils/validateInput.util"
 import { buildImageUrl } from "../utils/generatePublicImageUrl.util"
-import { prisma } from "../libs/prisma"
+import { prisma } from "../libs/prisma.lib"
 import { ERRORS } from "../constants/errors.constant"
 import { ApiError } from "../errors/apiError.error"
 
