@@ -8,7 +8,6 @@ export function handleError(res: Response, error: unknown): void {
       error_description: error.message,
     })
   } else {
-    console.error("Erro inesperado:", error)
     res.status(500).json({
       error_code: "INTERNAL_ERROR",
       error_description: "Erro interno do servidor",
