@@ -71,7 +71,8 @@ BASE_URL=http://localhost:3000
 PORT=3000
 ```
 > Observação: O usuário, senha e banco de dados acima já estão configurados no docker-compose.yml, garantindo que o backend conectará automaticamente ao banco ao subir os containers.
-> Importante: O schema.prisma está configurado para ler obrigatoriamente a variável DATABASE_URL. Caso ela não esteja definida no .env, o Prisma gerará erro de conexão. Certifique-se de sempre definir esta variável.
+
+> Importante: O `schema.prisma` está configurado para ler obrigatoriamente a variável `DATABASE_URL`. Caso ela não esteja definida no `.env`, o Prisma gerará erro de conexão. Certifique-se de sempre definir esta variável.
 
 4. **Suba o ambiente com Docker:**
 
