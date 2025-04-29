@@ -79,7 +79,7 @@ npm install
 ```plaintext
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/readings_db
 GEMINI_API_KEY=sua-chave-api-gemini
-BASE_URL=http://localhost:3000
+BASE_URL=http://localhost
 PORT=3000
 ```
 > Observação: O usuário, senha e banco de dados acima já estão configurados no docker-compose.yml, garantindo que o backend conectará automaticamente ao banco ao subir os containers.
@@ -99,19 +99,24 @@ docker-compose up --build
 ⚡ Após subir o ambiente com `docker-compose up --build`, execute:
 
 ```bash
+
 docker-compose exec backend bash
-npx prisma migrate dev
+
+# Aparecerá algo parecido com isso: root@...:/app#
+
 ```
 
-Isso aplica as migrations no banco de dados do container.
-
->🔌 Observação: Para rodar npx prisma migrate dev, é necessário apenas que o banco de dados esteja pronto. Não é necessário que o servidor Node.js esteja rodando corretamente ainda. Assim que o banco estiver aceitando conexões (`LOG:  database system is ready to accept connections`), você pode aplicar as migrações.
-
-6. **Inicie o servidor:**
+Com isso, basta executar:
 
 ```bash
-npm run dev
+
+root@...:/app# npx prisma migrate dev
+
 ```
+
+Isso aplica as migrations no banco de dados do container e seu servidor estará pronto para receber as requisições.
+
+>🔌 Observação: Para rodar npx prisma migrate dev, é necessário apenas que o banco de dados esteja pronto. Não é necessário que o servidor Node.js esteja rodando corretamente ainda. Assim que o banco estiver aceitando conexões (`LOG:  database system is ready to accept connections`), você pode aplicar as migrações.
 
 ---
 
