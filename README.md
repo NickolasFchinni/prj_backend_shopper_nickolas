@@ -88,6 +88,18 @@ PORT=3000
 
 4. **Suba o ambiente com Docker:**
 
+⚡ Antes de rodar o projeto com `docker-compose up`, lembre-se de executar localmente:
+
+```bash
+
+npx prisma generate
+
+```
+
+Isso garante que o Prisma Client estará gerado corretamente para o ambiente Docker.
+
+Após concluído, suba o ambiente com Docker:
+
 ```bash
 docker-compose up --build
 ```
@@ -106,11 +118,11 @@ docker-compose exec backend bash
 
 ```
 
-Com isso, basta executar:
+Após entrar no container, execute:
 
 ```bash
 
-root@...:/app# npx prisma migrate dev
+npx prisma migrate dev
 
 ```
 
@@ -133,7 +145,7 @@ Exemplo de chamada (Postman):
 
 ### Listar Medidas
 
-- **GET** `/:customer_code/list?measure_type=WATER|ENERGY`
+- **GET** `/:customer_code/list?measure_type=WATER|GAS`
 - Lista medições de um cliente filtrando por tipo de medida.
 
 ### Confirmar Leitura
