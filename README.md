@@ -96,9 +96,16 @@ docker-compose up --build
 
 5. **Rode as migrações do Prisma:**
 
+⚡ Após subir o ambiente com `docker-compose up --build`, execute:
+
 ```bash
+docker-compose exec backend bash
 npx prisma migrate dev
 ```
+
+Isso aplica as migrations no banco de dados do container.
+
+>🔌 Observação: Para rodar npx prisma migrate dev, é necessário apenas que o banco de dados esteja pronto. Não é necessário que o servidor Node.js esteja rodando corretamente ainda. Assim que o banco estiver aceitando conexões (`LOG:  database system is ready to accept connections`), você pode aplicar as migrações.
 
 6. **Inicie o servidor:**
 
