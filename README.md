@@ -48,6 +48,18 @@ public/uploads/
 
 ---
 
+## Requisitos para Execução
+
+* Verifique se o **Docker** está instalado na sua máquina.
+* Certifique-se de que o **Docker Desktop** está aberto e rodando antes de executar o `docker-compose up --build`.
+
+Para instalação do Docker:
+* [Docker para Windows](https://docs.docker.com/desktop/windows/install/)
+* [Docker para Mac](https://docs.docker.com/desktop/mac/install/)
+* [Docker para Linux](https://docs.docker.com/engine/install/)
+
+---
+
 ## Configuração do Ambiente
 
 1. **Clone o repositório:**
